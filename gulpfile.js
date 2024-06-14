@@ -6,8 +6,9 @@ const browserSync = require('browser-sync').create();
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const replace = require('gulp-replace');
 
-// Paths for vendor scripts and styles
+// Paths for vendor scripts, styles, and fonts
 const paths = {
     css: [
         'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -18,15 +19,36 @@ const paths = {
         'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', // Includes Popper for Bootstrap
         'node_modules/animejs/lib/anime.min.js',
         // Add other JS files here
+    ],
+    iconCSS: [
+        'node_modules/bootstrap-icons/font/bootstrap-icons.css',  // Bootstrap Icons CSS
+        'node_modules/@fortawesome/fontawesome-free/css/all.css',  // Font Awesome CSS
     ]
 };
+
+// Task to handle icon CSS and fonts
+gulp.task('icons', function() {
+    // Copy icon CSS and adjust font URL paths
+    return gulp.src(paths.iconCSS)
+        .pipe(sourcemaps.init())  // Start sourcemaps recording
+        .pipe(concat('icons.css'))
+        .pipe(replace('./fonts/', '../fonts/'))  // Adjusting paths relative to the dist directory
+        .pipe(replace('../webfonts/', '../fonts/'))  // Adjusting paths relative to the dist directory
+        .pipe(gulp.dest('css'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(sourcemaps.write('./'))  // Write sourcemaps to the same directory
+        .pipe(gulp.dest('css'));
+});
 
 // Task to concatenate and copy vendor CSS
 gulp.task('vendors-css', function () {
     return gulp.src(paths.css)
+        .pipe(sourcemaps.init())  // Start sourcemaps recording
         .pipe(concat('vendors.css'))
         .pipe(gulp.dest('css'))  // Adjust path as necessary
         .pipe(rename({suffix: '.min'}))
+        .pipe(sourcemaps.write('./'))  // Write sourcemaps to the same directory
         .pipe(gulp.dest('css'));  // Output both minified and regular as same file, adjust if needed
 });
 
@@ -66,4 +88,4 @@ gulp.task('serve', function() {
 });
 
 // Default task that can be called using just 'gulp' in the terminal
-gulp.task('default', gulp.series('sass', 'vendors-css', 'vendors-js', 'serve'));
+gulp.task('default', gulp.series('sass', 'vendors-css', 'vendors-js', 'icons', 'serve'));

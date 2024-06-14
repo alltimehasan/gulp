@@ -1,19 +1,24 @@
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+}
+
 .box {
   box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.6);
   padding: 30px;
-  background-color: #333;
+  background-color: #fff;
 }
 
 .box h1 {
-  color: #fff;
+  color: #000;
 }
 
 .box p {
-  color: #fff;
+  color: #000;
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: var(--blue);
   font-size: 15px;
 }
 
@@ -22,5 +27,6 @@ h1 {
 }
 
 p {
-  color: #333;
+  color: var(--blue);
+  font-size: 15px;
 }
