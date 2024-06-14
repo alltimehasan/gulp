@@ -15,9 +15,9 @@ const paths = {
         // Add other CSS files here
     ],
     js: [
-        'node_modules/jquery/dist/jquery.min.js', // jQuery
-        'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', // Includes Popper for Bootstrap
-        'node_modules/animejs/lib/anime.min.js',
+        'node_modules/jquery/dist/jquery.js', // jQuery
+        'node_modules/bootstrap/dist/js/bootstrap.bundle.js', // Includes Popper for Bootstrap
+        'node_modules/animejs/lib/anime.js',
         // Add other JS files here
     ],
     iconCSS: [
