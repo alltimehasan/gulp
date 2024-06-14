@@ -15,9 +15,9 @@ const paths = {
         // Add other CSS files here
     ],
     js: [
-        'node_modules/jquery/dist/jquery.js', // jQuery
-        'node_modules/bootstrap/dist/js/bootstrap.bundle.js', // Includes Popper for Bootstrap
-        'node_modules/animejs/lib/anime.js',
+        'node_modules/jquery/dist/jquery.min.js', // jQuery
+        'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', // Includes Popper for Bootstrap
+        'node_modules/animejs/lib/anime.min.js',
         // Add other JS files here
     ],
     iconCSS: [
@@ -48,6 +48,7 @@ gulp.task('vendors-css', function () {
         .pipe(concat('vendors.css'))
         .pipe(gulp.dest('css'))  // Adjust path as necessary
         .pipe(rename({suffix: '.min'}))
+        .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write('./'))  // Write sourcemaps to the same directory
         .pipe(gulp.dest('css'));  // Output both minified and regular as same file, adjust if needed
 });
